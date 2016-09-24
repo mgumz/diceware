@@ -1,64 +1,68 @@
-# diceware
+# *diceware*
 
 **diceware** creates passphrases along the guidelines posted on the [diceware]
-page and [xkcd]. in short, **diceware** makes use of physical dice to select
-words out of word lists. a word list consists of 7776 words, each word yields ~
-12.9 bits of entropy. thus, a passphrase made out of 8 words gives a whopping
+page and [xkcd]. In short, **diceware** makes use of physical dice to select
+words out of word lists. a word list consists of 7776 words, each word yields
+~12.9 bits of entropy. Thus, a passphrase made out of 8 words gives a whopping
 103.2 bits of entropy + the advantage of having something easy to remember.
 
 **diceware** can be used to lookup words on different precompiled word lists.
-this is the recommended mode of operation by the inventor of **diceware**
+This is the recommended mode of operation by the inventor of **diceware**
 himself.
 
-in the absence of physical dice you can also use **diceware** to generate a
+In the absence of physical dice you can also use **diceware** to generate a
 passphrase by rolling electronic dice.
 
-## usage:
+## Usage:
 
     Usage:
     diceware [opts] [roll1] [roll2] [roll3] [...]
 
     Options:
       -dump
-            dump the content of a -list
+          dump the content of a -list
       -electronic
-            roll dice electronically (see diceware FAQ)
+          roll dice electronically (see diceware FAQ)
+      -extra
+          modify one word according to 'extra' rules (-electronic)
       -file string
-            read word list from file
+          read word list from file
+      -horizontal
+          list rolled dice horizontally (-electronic) (default true)
       -list string
-            name of list to use (default "diceware")
+          name of list to use (default "diceware")
       -lists
-            list internal lists
+          list internal lists
       -rolls int
-            number of rolls for -electronic (default 6)
+          number of rolls for -electronic (default 6)
+      -verbose
+          be more verbose (print line number of used word)
 
 
-## building:
+## Building:
 
     $> export GOPATH=`pwd`
     $> go get -v github.com/mgumz/diceware
     $> cp bin/diceware /usr/local/bin
 
-## compiled in word lists:
+## Compiled in word lists:
 
 * diceware - the original word list
 * beale - the alternative word list made by Alan Beale
 * german - compiled by Benjamin Tenne (GPL2 license)
 * russian - compiled by "kitten"
 
-## todo:
+## Todo:
 
-* support the extra letter feature
-* improve the output
 * optionally support *diceware8k*
 * more built in word lists
 
-## similar tools:
+## Similar tools:
 
 * https://github.com/natefinch/diceware/
 
 
-## license:
+## License:
 
 Copyright (c) 2016 Mathias Gumz. All rights reserved.
 
@@ -66,15 +70,15 @@ Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are
 met:
 
-   * Redistributions of source code must retain the above copyright
-notice, this list of conditions and the following disclaimer.
-   * Redistributions in binary form must reproduce the above
-copyright notice, this list of conditions and the following disclaimer
-in the documentation and/or other materials provided with the
-distribution.
-   * Neither the name of Mathias Gumz nor the names of diceware's
-contributors may be used to endorse or promote products derived from
-this software without specific prior written permission.
+* Redistributions of source code must retain the above copyright
+  notice, this list of conditions and the following disclaimer.
+* Redistributions in binary form must reproduce the above
+  copyright notice, this list of conditions and the following
+  disclaimer in the documentation and/or other materials provided
+  with the distribution.
+* Neither the name of Mathias Gumz nor the names of diceware's
+  contributors may be used to endorse or promote products derived from
+  this software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
 "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
