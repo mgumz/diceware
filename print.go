@@ -14,7 +14,7 @@ type wordPrinter struct {
 func (p *wordPrinter) Print(words []wordLine) {
 
 	w := &tabwriter.Writer{}
-	w.Init(os.Stdout, 0, 8, 0, '\t', tabwriter.AlignRight)
+	w.Init(os.Stdout, 0, 8, 2, ' ', tabwriter.AlignRight)
 	defer w.Flush()
 
 	if p.horizontal {
