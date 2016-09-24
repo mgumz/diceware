@@ -2,11 +2,12 @@ package main
 
 import (
 	"crypto/rand"
-	"fmt"
 	"math/big"
 )
 
-func doRollOnList(rolls int, lines []string) {
+func doRollOnList(rolls int, lines []string, printer *wordPrinter) {
+
+	words := make([]wordLine, rolls)
 	max := big.NewInt(int64(len(lines)))
 
 	for i := 0; i < rolls; i += 1 {
@@ -14,6 +15,9 @@ func doRollOnList(rolls int, lines []string) {
 		if err != nil {
 			panic(err)
 		}
-		fmt.Println(lines[int(n.Int64())])
+		line := lines[int(n.Int64())]
+		words[i].Set(line)
 	}
+
+	printer.Print(words)
 }

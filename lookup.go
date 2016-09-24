@@ -6,16 +6,21 @@ import (
 	"strings"
 )
 
-func doLookupRolls(rolls, lines []string) {
+func doLookupRolls(rolls, lines []string, printer *wordPrinter) {
 
-	for _, roll := range rolls {
+	words := make([]wordLine, len(rolls))
+
+	for i, roll := range rolls {
 		line := lookup(roll, lines)
 		if line != "" {
-			fmt.Println(line)
+			words[i].Set(line)
 		} else {
-			fmt.Fprintf(os.Stderr, "error: %q not found in list", roll)
+			fmt.Fprintf(os.Stderr, "error: %q not found in list\n", roll)
+			return
 		}
 	}
+
+	printer.Print(words)
 }
 
 func lookup(roll string, lines []string) string {

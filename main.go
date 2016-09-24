@@ -27,6 +27,8 @@ func main() {
 	rolls := flag.Int("rolls", 6, "number of rolls for -electronic")
 	electronic := flag.Bool("electronic", false, "roll dice electronically (see diceware FAQ)")
 	listFile := flag.String("file", "", "read word list from file")
+	horizontal := flag.Bool("horizontal", true, "list rolled dice horizontally (-electronic)")
+	verbose := flag.Bool("verbose", false, "be more verbose (print line number of used word)")
 
 	flag.Parse()
 
@@ -62,12 +64,14 @@ func main() {
 		}
 	}
 
+	printer := &wordPrinter{*horizontal, *verbose}
+
 	if *electronic {
-		doRollOnList(*rolls, lines)
+		doRollOnList(*rolls, lines, printer)
 		return
 	}
 
-	doLookupRolls(flag.Args(), lines)
+	doLookupRolls(flag.Args(), lines, printer)
 }
 
 func linesFromInternalList(list string) []string {
