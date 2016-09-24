@@ -29,6 +29,7 @@ func main() {
 	listFile := flag.String("file", "", "read word list from file")
 	horizontal := flag.Bool("horizontal", true, "list rolled dice horizontally (-electronic)")
 	verbose := flag.Bool("verbose", false, "be more verbose (print line number of used word)")
+	extra := flag.Bool("extra", false, "modify one word according to 'extra' rules (-electronic)")
 
 	flag.Parse()
 
@@ -67,7 +68,7 @@ func main() {
 	printer := &wordPrinter{*horizontal, *verbose}
 
 	if *electronic {
-		doRollOnList(*rolls, lines, printer)
+		doRollOnList(*rolls, lines, *extra, printer)
 		return
 	}
 
