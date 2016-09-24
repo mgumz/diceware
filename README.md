@@ -54,7 +54,6 @@ passphrase by rolling electronic dice.
 
 ## Todo:
 
-* optionally support *diceware8k*
 * more built in word lists
 
 ## Similar tools:
