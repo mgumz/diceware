@@ -8,6 +8,7 @@ import (
 	"fmt"
 	"io"
 	"os"
+	"sort"
 	"strings"
 )
 
@@ -21,7 +22,7 @@ func main() {
 		flag.PrintDefaults()
 	}
 
-	list := flag.String("list", "diceware", "name of list to use")
+	list := flag.String("list", "diceware", "name of list to use, see -lists")
 	listLists := flag.Bool("lists", false, "list internal lists")
 	dumpList := flag.Bool("dump", false, "dump the content of a -list")
 	rolls := flag.Int("rolls", 6, "number of rolls for -electronic")
@@ -34,7 +35,7 @@ func main() {
 	flag.Parse()
 
 	if *listLists {
-		for name, _ := range internalLists {
+		for _, name := range internalListNames() {
 			fmt.Println(name)
 		}
 		return
@@ -112,4 +113,15 @@ func listReaderFromString(list string) io.ReadCloser {
 		panic(err)
 	}
 	return gz
+}
+
+func internalListNames() []string {
+	names := make([]string, len(internalLists))
+	i := 0
+	for name, _ := range internalLists {
+		names[i] = name
+		i += 1
+	}
+	sort.Strings(names)
+	return names
 }
