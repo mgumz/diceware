@@ -1,18 +1,10 @@
 package main
 
 import (
-	"bufio"
-	"compress/gzip"
-	"encoding/base64"
 	"flag"
 	"fmt"
-	"io"
 	"os"
-	"sort"
-	"strings"
 )
-
-var internalLists = make(map[string]string)
 
 func main() {
 
@@ -78,55 +70,9 @@ func main() {
 		flag.Usage()
 		return
 	}
-	doLookupRolls(flag.Args(), lines, printer)
-}
 
-func linesFromInternalList(list string) []string {
-	r := internalListReader(list)
-	if r == nil {
-		return nil
+	if err := doLookupRolls(flag.Args(), lines, printer); err != nil {
+		fmt.Fprintf(os.Stderr, "error: %s", err)
+		os.Exit(1)
 	}
-	defer r.Close()
-	return readerToLines(r)
-}
-
-func readerToLines(r io.Reader) []string {
-	scanner := bufio.NewScanner(r)
-	scanner.Split(bufio.ScanLines)
-	lines := make([]string, 0)
-	for scanner.Scan() {
-		lines = append(lines, scanner.Text())
-	}
-
-	return lines
-}
-
-func internalListReader(name string) io.ReadCloser {
-	list, exists := internalLists[name]
-	if !exists {
-		return nil
-	}
-
-	return listReaderFromString(list)
-}
-
-func listReaderFromString(list string) io.ReadCloser {
-	r := strings.NewReader(strings.TrimSpace(list))
-	b64 := base64.NewDecoder(base64.StdEncoding, r)
-	gz, err := gzip.NewReader(b64)
-	if err != nil {
-		panic(err)
-	}
-	return gz
-}
-
-func internalListNames() []string {
-	names := make([]string, len(internalLists))
-	i := 0
-	for name, _ := range internalLists {
-		names[i] = name
-		i += 1
-	}
-	sort.Strings(names)
-	return names
 }

@@ -11,8 +11,9 @@ func doRollOnList(rolls int, lines []string, extra bool, printer *wordPrinter) {
 	max := len(lines)
 
 	for i := 0; i < rolls; i += 1 {
-		line := lines[randN(max)]
-		words[i].Set(line)
+		index := randN(max)
+		line := lines[index]
+		words[i].Set(line, index)
 	}
 
 	if extra {
@@ -22,8 +23,8 @@ func doRollOnList(rolls int, lines []string, extra bool, printer *wordPrinter) {
 	printer.Print(words)
 }
 
-//
-// to cite diceware:
+// doExtra replace one char of one randomly selected word of words according
+// to the diceware-extra rules. to cite diceware:
 //
 // For extra security without adding another word, insert one special
 // character or digit chosen at random into your passphrase. Here is how to

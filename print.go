@@ -24,7 +24,7 @@ func (p *wordPrinter) Print(words []wordLine) {
 		fmt.Fprintln(w)
 		if p.verbose {
 			for i := range words {
-				fmt.Fprintf(w, "%s\t", words[i].line)
+				fmt.Fprintf(w, "%s\t", indexToDiceChain(words[i].index))
 			}
 			fmt.Fprintln(w)
 		}
@@ -32,7 +32,7 @@ func (p *wordPrinter) Print(words []wordLine) {
 		for i := range words {
 			fmt.Fprintf(w, "%s", words[i].word)
 			if p.verbose {
-				fmt.Fprintf(w, "\t%s", words[i].line)
+				fmt.Fprintf(w, "\t%s", indexToDiceChain(words[i].index))
 			}
 			fmt.Fprintln(w)
 		}
