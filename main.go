@@ -73,6 +73,11 @@ func main() {
 		return
 	}
 
+	if len(flag.Args()) == 0 {
+		fmt.Println("no rolls given, no lookup possible.\n")
+		flag.Usage()
+		return
+	}
 	doLookupRolls(flag.Args(), lines, printer)
 }
 
