@@ -2,35 +2,27 @@
 # http://world.std.com/~reinhold/diceware.html#Diceware in Other Languages|outline
 #
 
-ALL=reinhold.gz.b64 \
-	beale.gz.b64 \
-	german.gz.b64 \
-	russian.gz.b64 \
-	eff2016.gz.b64 \
-	diceware8k.gz.b64
-
-GZ_B64=gzip -9 -c | ENC=64 WRAP=78 r2t
-
+ALL=reinhold.stripped \
+	beale.stripped \
+	german.stripped \
+	russian.stripped \
+	eff2016.stripped
 
 all: $(ALL)
 clean:
 	rm -f $(ALL)
 
+reinhold.stripped: diceware.wordlist.asc
+	sed -n -e '3,7778 s/^[0-9]*[ 	]//p' $< > $@
 
-reinhold.gz.b64: diceware.wordlist.asc
-	sed -n -e '3,7778p' $< | $(GZ_B64) > $@
+beale.stripped: beale.wordlist.asc
+	sed -n -e '3,7778 s/^[0-9]*[ 	]//p' $< > $@
 
-beale.gz.b64: beale.wordlist.asc
-	sed -n -e '3,7778p' $< | $(GZ_B64) > $@
+german.stripped: diceware_german.txt
+	sed -n -e 's/^[0-9]*[ 	]//p' $< > $@
 
-german.gz.b64: diceware_german.txt
-	cat $< | $(GZ_B64) > $@
+russian.stripped: diceware.ru.txt
+	sed -n -e 's/^[0-9]*[ 	]//p' $< > $@
 
-russian.gz.b64: diceware.ru.txt
-	cat $< | $(GZ_B64) > $@
-
-eff2016.gz.b64: eff_large_wordlist.txt
-	cat $< | $(GZ_B64) > $@
-
-diceware8k.gz.b64: diceware8k.txt
-	cat -n $< | $(GZ_B64) > $@
+eff2016.stripped: eff_large_wordlist.txt
+	sed -n -e 's/^[0-9]*[ 	]//p' $< > $@
