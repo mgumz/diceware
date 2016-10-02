@@ -14,6 +14,7 @@ func main() {
 		flag.PrintDefaults()
 	}
 
+	version := flag.Bool("version", false, "show version")
 	list := flag.String("list", "diceware", "name of list to use, see -lists")
 	listLists := flag.Bool("lists", false, "list internal lists")
 	dumpList := flag.Bool("dump", false, "dump the content of a -list")
@@ -25,6 +26,11 @@ func main() {
 	extra := flag.Bool("extra", false, "modify one word according to 'extra' rules (-electronic)")
 
 	flag.Parse()
+
+	if *version {
+		printVersion(*verbose)
+		return
+	}
 
 	if *listLists {
 		for _, name := range internalListNames() {
