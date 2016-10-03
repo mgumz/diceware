@@ -14,7 +14,7 @@ func main() {
 		flag.PrintDefaults()
 	}
 
-	version := flag.Bool("version", false, "show version")
+	version := flag.Bool("version", false, "show version, combine with -version")
 	list := flag.String("list", "diceware", "name of list to use, see -lists")
 	listLists := flag.Bool("lists", false, "list internal lists")
 	dumpList := flag.Bool("dump", false, "dump the content of a -list")

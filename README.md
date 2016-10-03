@@ -8,10 +8,18 @@ words out of word lists. a word list consists of 7776 words, each word yields
 
 **diceware** can be used to lookup words on different precompiled word lists.
 This is the recommended mode of operation by the inventor of **diceware**
-himself.
+himself. An example word list would look like this:
+
+    $> diceware 12345 22334 44556 54321 34251
+      apathy  dang  oxeye  slain  issue
 
 In the absence of physical dice you can also use **diceware** to generate a
-passphrase by rolling electronic dice.
+passphrase by rolling electronic dice. An example word list made by the
+-electronic flag would look like this:
+
+    $> diceware -electronic
+      hondo  groton  tabula  pete  2001  cock
+
 
 ## Usage:
 
@@ -37,6 +45,8 @@ passphrase by rolling electronic dice.
           number of rolls for -electronic (default 6)
       -verbose
           be more verbose (print line number of used word)
+      -version
+          show version, combine with -verbose
 
 
 ## Building:
@@ -47,10 +57,11 @@ passphrase by rolling electronic dice.
 
 ## Compiled in word lists:
 
-* diceware - the original word list
+* diceware - the original word list made by Arnold Reinhold
 * beale - the alternative word list made by Alan Beale
 * german - compiled by Benjamin Tenne (GPL2 license)
 * russian - compiled by "kitten"
+* eff2016 - an alternative list by the Electronic Frontier Foundation
 
 ## Todo:
 
