@@ -1,7 +1,7 @@
 package main
 
 func init() {
-	internalLists["german"] = `0
+	internalLists["de"] = `0
 1
 2
 3
