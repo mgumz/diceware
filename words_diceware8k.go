@@ -3,7 +3,7 @@ package main
 import "strconv"
 
 func init() {
-	internalLists["diceware8k"] = &WordList{
+	internalLists["8k"] = &WordList{
 		Name:    "Diceware 8k List",
 		Author:  "Arnold Reinhold",
 		License: "",

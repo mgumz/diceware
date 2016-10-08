@@ -8,7 +8,12 @@ ALL=reinhold.stripped \
 	japanese.stripped \
 	italy.stripped \
 	russian.stripped \
-	eff2016.stripped
+	eff2016.stripped \
+	svedish.stripped \
+	turkish.stripped \
+	portuguese.stripped \
+	polish.stripped
+
 
 all: $(ALL)
 clean:
@@ -29,8 +34,21 @@ italy.stripped: word_list_diceware_it-IT-2.txt
 german.stripped: diceware_german.txt
 	sed -n -e 's/^[0-9]*[ 	]//p' $< > $@
 
+svedish.stripped: diceware-sv.txt
+	sed -n -e 's/^[0-9]*[ 	]//p' $< > $@
+
+turkish.stripped: diceware_tr.txt
+	sed -n -e 's/^[0-9]*[ 	]//p' $< > $@
+
+portuguese.stripped: diceware.wordlist.pt.txt
+	sed -n -e '4,7779 s/^[0-9]*[ 	]*//p' $< > $@
+
+polish.stripped: dicelist-pl.txt
+	sed -n -e '12,7787 s/^[0-9]*[ 	]*//p' $< > $@
+
 russian.stripped: diceware.ru.txt
 	sed -n -e 's/^[0-9]*[ 	]//p' $< | iconv -t latin1 | iconv -f cp1251 -t utf-8 > $@
 
 eff2016.stripped: eff_large_wordlist.txt
 	sed -n -e 's/^[0-9]*[ 	]//p' $< > $@
+
