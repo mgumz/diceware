@@ -12,7 +12,8 @@ ALL=reinhold.stripped \
 	svedish.stripped \
 	turkish.stripped \
 	portuguese.stripped \
-	polish.stripped
+	polish.stripped \
+	dutch.stripped
 
 
 all: $(ALL)
@@ -30,6 +31,9 @@ japanese.stripped: diceware_jp.txt
 
 italy.stripped: word_list_diceware_it-IT-2.txt
 	sed -n -e '18,7793 s/^[0-9]*[ 	]//p' $< > $@
+
+dutch.stripped: DicewareDutch.txt
+	iconv -f latin1 -t utf8 $< | sed -n -e 's/^[0-9]*[ 	]//p' > $@
 
 german.stripped: diceware_german.txt
 	sed -n -e 's/^[0-9]*[ 	]//p' $< > $@
