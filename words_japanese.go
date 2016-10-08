@@ -1,7 +1,13 @@
 package main
 
 func init() {
-	internalLists["jp"] = `0
+	internalLists["jp"] = &WordList{
+		Name:    "Japanese Word List",
+		Author:  "Hiroshi Yuki",
+		License: "",
+		Origin:  "http://s3.amazonaws.com/dotclue.org/diceware_jp.txt",
+		Index:   indexToDiceChain,
+		Words: `0
 1
 10
 100
@@ -7776,6 +7782,6 @@ zx
 zy
 zz
 zzz
-zzzz`
-
+zzzz`,
+	}
 }

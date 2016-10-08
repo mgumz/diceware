@@ -1,7 +1,15 @@
 package main
 
 func init() {
-	internalLists["eff2016"] = `abacus
+	internalLists["eff2016"] = &WordList{
+		Name: "Electronic Frontier Foundation Word List, 2006er version",
+		// see .Origin, Joseph writes about
+		// "We took all words between 3 and 9 characters from the list"
+		Author:  "Joseph Bonneau et al.",
+		License: "Creative Commons Attribution License", // https://www.eff.org/copyright
+		Origin:  "https://www.eff.org/deeplinks/2016/07/new-wordlists-random-passphrases",
+		Index:   indexToDiceChain,
+		Words: `abacus
 abdomen
 abdominal
 abide
@@ -7776,6 +7784,6 @@ zoning
 zookeeper
 zoologist
 zoology
-zoom`
-
+zoom`,
+	}
 }

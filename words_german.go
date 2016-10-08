@@ -1,7 +1,13 @@
 package main
 
 func init() {
-	internalLists["de"] = `0
+	internalLists["de"] = &WordList{
+		Name:    "German Diceware List",
+		Author:  "Benjamin Tenne",
+		License: "GNU General Public License",
+		Origin:  "http://world.std.com/~reinhold/diceware_german.txt",
+		Index:   indexToDiceChain,
+		Words: `0
 1
 2
 3
@@ -7776,6 +7782,6 @@ zyste
 zz
 zzgl
 zzz
-zzzz`
-
+zzzz`,
+	}
 }

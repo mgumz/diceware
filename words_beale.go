@@ -2,8 +2,13 @@ package main
 
 func init() {
 
-	// base64(gzip('lists/beale.wordlist.asc'))
-	internalLists["beale"] = `a
+	internalLists["beale"] = &WordList{
+		Name:    "beale",
+		Author:  "Alan Beale",
+		License: "",
+		Origin:  "http://world.std.com/~reinhold/beale.wordlist.asc",
+		Index:   indexToDiceChain,
+		Words: `a
 a's
 a-1
 a-z
@@ -7778,6 +7783,6 @@ $$
 =
 ?
 ??
-@`
-
+@`,
+	}
 }

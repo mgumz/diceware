@@ -2,24 +2,24 @@ package main
 
 import "fmt"
 
-func doLookupRolls(rolls, lines []string, printer *wordPrinter) error {
+func doLookupRolls(rolls, words []string, printer *wordPrinter) error {
 
-	words := make([]wordLine, len(rolls))
+	selected := make([]wordLine, len(rolls))
 
 	for i, chain := range rolls {
 		index, err := parseDiceChain(chain)
 		if err != nil {
 			return fmt.Errorf("%q not a valid dicechain\n", chain)
 		}
-		if index < 0 || index >= len(lines) {
+		if index < 0 || index >= len(words) {
 			return fmt.Errorf("%q not in the list\n", chain)
 		}
 
-		word := lines[index]
-		words[i].Set(word, index)
+		word := words[index]
+		selected[i].Set(word, index)
 	}
 
-	printer.Print(words)
+	printer.Print(selected)
 
 	return nil
 }

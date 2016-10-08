@@ -1,7 +1,13 @@
 package main
 
 func init() {
-	internalLists["it"] = `0
+	internalLists["it"] = &WordList{
+		Name:    "Italian Word List",
+		License: "",
+		Author:  "",
+		Origin:  "",
+		Index:   indexToDiceChain,
+		Words: `0
 1
 2
 3
@@ -7776,6 +7782,6 @@ zx
 zy
 zz
 zzz
-zzzz`
-
+zzzz`,
+	}
 }
