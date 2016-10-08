@@ -30,7 +30,7 @@ german.stripped: diceware_german.txt
 	sed -n -e 's/^[0-9]*[ 	]//p' $< > $@
 
 russian.stripped: diceware.ru.txt
-	sed -n -e 's/^[0-9]*[ 	]//p' $< > $@
+	sed -n -e 's/^[0-9]*[ 	]//p' $< | iconv -t latin1 | iconv -f cp1251 -t utf-8 > $@
 
 eff2016.stripped: eff_large_wordlist.txt
 	sed -n -e 's/^[0-9]*[ 	]//p' $< > $@
