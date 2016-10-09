@@ -17,9 +17,9 @@ func main() {
 	version := flag.Bool("version", false, "show version, combine with -version")
 	list := flag.String("list", "diceware", "name of list to use, see -lists")
 	listLists := flag.Bool("lists", false, "list internal lists")
-	dumpList := flag.Bool("dump", false, "dump the content of a -list")
+	dumpList := flag.Bool("dump", false, "dump the content of a -list, combine with -verbose")
 	rolls := flag.Int("rolls", 6, "number of rolls for -electronic")
-	electronic := flag.Bool("electronic", false, "roll dice electronically (see diceware FAQ)")
+	electronic := flag.Bool("electronic", false, "roll dice electronically, see diceware FAQ")
 	listFile := flag.String("file", "", "read word list from file")
 	horizontal := flag.Bool("horizontal", true, "list rolled dice horizontally (-electronic)")
 	verbose := flag.Bool("verbose", false, "be more verbose (print line number of used word)")
@@ -44,7 +44,7 @@ func main() {
 			fmt.Fprintf(os.Stderr, "error: missing -list\n")
 			return
 		}
-		doDumpList(*list)
+		doDumpList(*list, *verbose)
 		return
 	}
 
