@@ -6,7 +6,7 @@ import (
 	"text/tabwriter"
 )
 
-func doDumpList(name string, verbose bool) {
+func doDumpList(name string, horizontal, verbose bool) {
 	list, exists := internalLists[name]
 	if !exists {
 		fmt.Fprintf(os.Stderr, "error: list %q does not exist\n", name)
@@ -27,8 +27,20 @@ func doDumpList(name string, verbose bool) {
 		fmt.Fprintln(w, "---")
 	}
 
-	for i, word := range linesFromInternalList(name) {
-		fmt.Fprintln(w, list.Index(i), "\t", word)
+	if horizontal {
+		for i, word := range linesFromInternalList(name) {
+			fmt.Fprint(w, list.Index(i)+" "+word)
+			if (i+1)%6 == 0 {
+				fmt.Fprintln(w)
+			} else {
+				fmt.Fprint(w, "\t")
+			}
+		}
+
+	} else {
+		for i, word := range linesFromInternalList(name) {
+			fmt.Fprintln(w, list.Index(i), "\t", word)
+		}
 	}
 
 }
