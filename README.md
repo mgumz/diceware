@@ -28,7 +28,7 @@ passphrase by rolling electronic dice. An example word list made by the
 
     Options:
       -dump
-            dump the content of a -list, combine with -horizontal,-verbose
+            dump the content of a -list, combine with -horizontal, -verbose
       -electronic
             roll dice electronically, see diceware FAQ
       -extra

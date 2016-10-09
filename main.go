@@ -17,7 +17,7 @@ func main() {
 	version := flag.Bool("version", false, "show version, combine with -version")
 	list := flag.String("list", "diceware", "name of list to use, see -lists")
 	listLists := flag.Bool("lists", false, "list internal lists")
-	dumpList := flag.Bool("dump", false, "dump the content of a -list, combine with -horizontal,-verbose")
+	dumpList := flag.Bool("dump", false, "dump the content of a -list, combine with -horizontal, -verbose")
 	rolls := flag.Int("rolls", 6, "number of rolls for -electronic")
 	electronic := flag.Bool("electronic", false, "roll dice electronically, see diceware FAQ")
 	listFile := flag.String("file", "", "read word list from file")
