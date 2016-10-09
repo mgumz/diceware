@@ -3,9 +3,9 @@ package main
 func init() {
 	internalLists["it"] = &WordList{
 		Name:    "Italian Word List",
-		License: "",
-		Author:  "",
-		Origin:  "",
+		Author:  "Tarin Gamberini",
+		License: "GPL",
+		Origin:  "http://www.taringamberini.com/downloads/diceware_it_IT/lista-di-parole-diceware-in-italiano/2/word_list_diceware_it-IT-2.txt",
 		Index:   indexToDiceChain,
 		Words: `0
 1
