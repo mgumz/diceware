@@ -6,6 +6,9 @@ import (
 	"text/tabwriter"
 )
 
+// dumps a given word list, identified by 'name', to stdout
+// 'horizontal' - prints 6 words (+ the index) on each line
+// 'verbose' - prints also the available meta data befor all words
 func doDumpList(name string, horizontal, verbose bool) {
 	list, exists := internalLists[name]
 	if !exists {

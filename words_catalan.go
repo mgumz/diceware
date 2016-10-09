@@ -4,7 +4,7 @@ func init() {
 
 	internalLists["ca"] = &WordList{
 		Name:    "Catalan Diceware List",
-		Author:  " Marcel Hernandez",
+		Author:  "Marcel Hernandez",
 		License: "CC-BY-4.0",
 		Origin:  "https://raw.githubusercontent.com/1ma/diceware-cat/master/cat-wordlist-utf8.txt",
 		Index:   indexToDiceChain,

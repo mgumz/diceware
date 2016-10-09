@@ -5,6 +5,14 @@ import (
 	"math/big"
 )
 
+// do 'rolls' throws of an electronic dice (or, to use other words: get a
+// number from a pseudo random generator)
+//
+// if 'extra' is given, one of the selected words is altered by the
+// 'extra' rules described on the diceware site. see 'doExtra' for more
+// information about it.
+//
+// use 'printer' to print the selected words to stdout
 func doRollOnList(rolls int, lines []string, extra bool, printer *wordPrinter) {
 
 	words := make([]wordLine, rolls)

@@ -7,11 +7,12 @@ import (
 )
 
 var (
-	Version   = "0.1"
+	Version   = "0.9"
 	GitHash   = ""
 	BuildDate = ""
 )
 
+// print the version
 func printVersion(verbose bool) {
 
 	tw := tabwriter.NewWriter(os.Stdout, 1, 2, 2, ' ', 0)

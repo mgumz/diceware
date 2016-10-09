@@ -2,6 +2,8 @@ package main
 
 import "fmt"
 
+// for each dice roll in a list of rolls, lookup the appropriate
+// word in 'words' and feeds the selected words to 'printer'
 func doLookupRolls(rolls, words []string, printer *wordPrinter) error {
 
 	selected := make([]wordLine, len(rolls))
