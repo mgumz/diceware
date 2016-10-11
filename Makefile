@@ -6,6 +6,7 @@ RELEASES=bin/diceware-$(VERSION).linux.amd64 \
 		 bin/diceware-$(VERSION).linux.arm64 \
 		 bin/diceware-$(VERSION).linux.mips64 \
 		 bin/diceware-$(VERSION).windows.amd64.exe \
+		 bin/diceware-$(VERSION).freebsd.amd64 \
 		 bin/diceware-$(VERSION).darwin.amd64
 
 
@@ -28,6 +29,9 @@ bin/diceware-$(VERSION).windows.amd64.exe: bin
 
 bin/diceware-$(VERSION).darwin.amd64: bin
 	env GOOS=darwin GOARCH=amd64 CGO_ENABLED=0 go build $(LDFLAGS) -o $@
+
+bin/diceware-$(VERSION).freebsd.amd64: bin
+	env GOOS=freebsd GOARCH=amd64 CGO_ENABLED=0 go build $(LDFLAGS) -o $@
 
 bin:
 	mkdir $@
