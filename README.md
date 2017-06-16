@@ -95,7 +95,7 @@ them. The lists are integrated only to increase the convenience of having
 
 ## License:
 
-Copyright (c) 2016 Mathias Gumz. All rights reserved.
+Copyright (c) 2017 Mathias Gumz. All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are
