@@ -17,7 +17,7 @@ type WordList struct {
 	Words   string
 }
 
-var internalLists = make(map[string]*WordList)
+var internalLists = map[string]*WordList{}
 
 func linesFromInternalList(list string) []string {
 	r := internalListReader(list)
@@ -56,9 +56,9 @@ func listReaderFromString(list string) io.ReadCloser {
 func internalListNames() []string {
 	names := make([]string, len(internalLists))
 	i := 0
-	for name, _ := range internalLists {
+	for name := range internalLists {
 		names[i] = name
-		i += 1
+		i++
 	}
 	sort.Strings(names)
 	return names

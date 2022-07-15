@@ -11,10 +11,10 @@ func doLookupRolls(rolls, words []string, printer *wordPrinter) error {
 	for i, chain := range rolls {
 		index, err := parseDiceChain(chain)
 		if err != nil {
-			return fmt.Errorf("%q not a valid dicechain\n", chain)
+			return fmt.Errorf("%q not a valid dicechain", chain)
 		}
 		if index < 0 || index >= len(words) {
-			return fmt.Errorf("%q not in the list\n", chain)
+			return fmt.Errorf("%q not in the list", chain)
 		}
 
 		word := words[index]

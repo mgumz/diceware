@@ -34,10 +34,14 @@ import (
 func parseDiceChain(chain string) (int, error) {
 
 	if len(chain) != 5 {
-		return -1, fmt.Errorf("invalid dicechain %q: expected 6 chars", chain)
+		return -1, fmt.Errorf("invalid dicechain %q: expected atleast 6 chars", chain)
 	}
 
 	r := strings.Map(diceDown, chain)
+	if len(r) != 5 {
+		return -1, fmt.Errorf("invalid dicechain %q: contains invalid char", chain)
+	}
+
 	n, err := strconv.ParseInt(r, 6, 32)
 
 	return int(n), err
@@ -65,11 +69,9 @@ func diceDown(r rune) rune {
 		return '4'
 	case '6':
 		return '5'
+	default:
+		return -1
 	}
-
-	panic("unhandled rune " + string(r))
-
-	return 0
 }
 
 func diceUp(r rune) rune {
@@ -87,9 +89,7 @@ func diceUp(r rune) rune {
 		return '5'
 	case '5':
 		return '6'
+	default:
+		return -1
 	}
-
-	panic("unhandled rune " + string(r))
-
-	return 0
 }

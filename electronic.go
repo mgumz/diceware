@@ -18,7 +18,7 @@ func doRollOnList(rolls int, lines []string, extra bool, printer *wordPrinter) {
 	words := make([]wordLine, rolls)
 	max := len(lines)
 
-	for i := 0; i < rolls; i += 1 {
+	for i := 0; i < rolls; i++ {
 		index := randN(max)
 		line := lines[index]
 		words[i].Set(line, index)

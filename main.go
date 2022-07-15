@@ -52,11 +52,11 @@ func main() {
 	if *listFile != "" {
 		file, err := os.Open(*listFile)
 		if err != nil {
-			fmt.Fprintf(os.Stderr, "error: %q: %v\n", err)
+			fmt.Fprintf(os.Stderr, "error: %q: %v\n", *listFile, err)
 			os.Exit(2)
 		}
-		defer file.Close()
 		lines = readerToLines(file)
+		file.Close()
 	} else {
 		if lines = linesFromInternalList(*list); lines == nil {
 			fmt.Fprintf(os.Stderr, "error: list %q does not exist\n", *list)
@@ -72,7 +72,7 @@ func main() {
 	}
 
 	if len(flag.Args()) == 0 {
-		fmt.Println("no rolls given, no lookup possible.\n")
+		fmt.Println("no rolls given, no lookup possible.")
 		flag.Usage()
 		return
 	}
