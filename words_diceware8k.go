@@ -1,13 +1,11 @@
 package main
 
-import "strconv"
-
 func init() {
 	internalLists["8k"] = &WordList{
 		Name:    "Diceware 8k List",
 		Author:  "Arnold Reinhold",
 		License: "",
-		Index:   strconv.Itoa,
+		Index:   indexToPlainNumber,
 		Words: `a
 a&p
 a's

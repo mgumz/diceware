@@ -32,7 +32,8 @@ func doDumpList(name string, horizontal, verbose bool) {
 
 	if horizontal {
 		for i, word := range linesFromInternalList(name) {
-			fmt.Fprint(w, list.Index(i)+" "+word)
+			idx := list.Index(i)
+			fmt.Fprintf(w, "%s %s", idx, word)
 			if (i+1)%6 == 0 {
 				fmt.Fprintln(w)
 			} else {
@@ -42,7 +43,8 @@ func doDumpList(name string, horizontal, verbose bool) {
 
 	} else {
 		for i, word := range linesFromInternalList(name) {
-			fmt.Fprintln(w, list.Index(i), "\t", word)
+			idx := list.Index(i)
+			fmt.Fprintln(w, idx, "\t", word)
 		}
 	}
 

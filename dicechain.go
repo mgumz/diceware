@@ -19,27 +19,35 @@ import (
 //	11115	aaa
 //	11116	aaaa
 //
-// so, '11111' maps to index '0', '11116' maps to index '6' in the list.
+// '11111' maps to index '0', '11116' maps to index '6' in the list, etc.
 //
-// by using (real world) dices, a user creates a dicechain, look up the
-// word in the list, repeat. the -electronic mode switches to the weaker
+// since dices start with '1' while an index in golang starts with '0',
+// we have to translate the dicechain into a proper base-6 number to get
+// the index in the list of words. see diceDown() and diceUp() for the
+// respective transformations.
+//
+// by using (real world) dices, a user creates a dicechain, looks up the
+// word in the list, repeats. the -electronic mode switches to the weaker
 // (from a quality of randomness point of view) (pseudo-) random number
 // generator of the operating system, picks the word of the used list
 // based upon the random number, repeat.
 //
 // i removed the dicechain prefix of each list to slim down the size of
 // each list.
+type diceChain string
 
-// parse a dicechain into an "index".
-func parseDiceChain(chain string) (int, error) {
+func (dc diceChain) String() string { return string(dc) }
+
+// transform a dicechain into an "index".
+func (chain diceChain) toIndex() (int, error) {
 
 	if len(chain) != 5 {
-		return -1, fmt.Errorf("invalid dicechain %q: expected atleast 6 chars", chain)
+		return -1, fmt.Errorf("invalid dicechain %q: expected 5 chars per dicechain", chain)
 	}
 
-	r := strings.Map(diceDown, chain)
+	r := strings.Map(diceDown, chain.String())
 	if len(r) != 5 {
-		return -1, fmt.Errorf("invalid dicechain %q: contains invalid char", chain)
+		return -1, fmt.Errorf("invalid dicechain %q: contains an invalid char", chain)
 	}
 
 	n, err := strconv.ParseInt(r, 6, 32)
@@ -47,13 +55,14 @@ func parseDiceChain(chain string) (int, error) {
 	return int(n), err
 }
 
-func indexToDiceChain(index int) string {
-
+func (dc diceChain) FromIndex(index int) diceChain {
 	r := strconv.FormatInt(int64(index), 6)
 	r = fmt.Sprintf("%05s", r)
-	return strings.Map(diceUp, r)
+	dc = diceChain(strings.Map(diceUp, r))
+    return dc
 }
 
+// transform '12345' to '01234' - all numbers down by 1
 func diceDown(r rune) rune {
 
 	switch r {
@@ -74,6 +83,7 @@ func diceDown(r rune) rune {
 	}
 }
 
+// inverse of diceDown
 func diceUp(r rune) rune {
 
 	switch r {

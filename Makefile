@@ -7,7 +7,7 @@ BINARIES=$(addprefix bin/diceware-$(VERSION)., $(BUILDS))
 
 LDFLAGS=-ldflags "-X main.Version=$(VERSION) -X main.BuildDate=$(BUILD_DATE) -X main.GitHash=$(GIT_HASH)"
 
-bin/diceware: bin
+bin/diceware: bin .
 	go build -v -o $@ .
 
 releases: $(BINARIES)

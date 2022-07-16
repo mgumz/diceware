@@ -78,7 +78,7 @@ func main() {
 	}
 
 	if err := doLookupRolls(flag.Args(), lines, printer); err != nil {
-		fmt.Fprintf(os.Stderr, "error: %s", err)
+		fmt.Fprintf(os.Stderr, "error: %s\n", err)
 		os.Exit(1)
 	}
 }

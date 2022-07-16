@@ -1,14 +1,12 @@
 package main
 
-import "strconv"
-
 func init() {
 	internalLists["sv8k"] = &WordList{
 		Name:    "Svedish Diceware 8k List",
 		Author:  "Magnus Bodin",
 		License: "",
 		Origin:  "http://x42.com/diceware/diceware-sv.txt",
-		Index:   strconv.Itoa,
+		Index:   indexToPlainNumber,
 		Words: `=
 ==
 ===
