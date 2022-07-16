@@ -1,19 +1,35 @@
 # *diceware*
 
 **diceware** creates passphrases along the guidelines posted on the [diceware]
-page and [xkcd]. In short, **diceware** makes use of physical dice to select
+page and [xkcd]. In short, **diceware** makes use of a physical dice to select
 words out of word lists. a word list consists of 7776 words, each word yields
 ~12.9 bits of entropy. Thus, a passphrase made out of 8 words gives a whopping
 103.2 bits of entropy + the advantage of having something easy to remember.
 
 **diceware** can be used to lookup words on different precompiled word lists.
 This is the recommended mode of operation by the inventor of **diceware**
-himself. An example word list would look like this:
+himself. An example use of **diceware** looks like this:
+
+1. The user rolls a physcal dice in groups of 5
+
+    ⚀ ⚁ ⚂ ⚃ ⚄
+
+    ⚁ ⚁ ⚂ ⚂ ⚃
+
+    ⚃ ⚃ ⚄ ⚄ ⚅
+
+    ⚄ ⚃ ⚂ ⚁ ⚀
+
+    ⚂ ⚃ ⚁ ⚄ ⚀
+
+2. The user looks up the words which map to the dice rolled:
 
     $> diceware 12345 22334 44556 54321 34251
       apathy  dang  oxeye  slain  issue
 
-In the absence of physical dice you can also use **diceware** to generate a
+3. The users passphrase is "apathy dang oxeye slain issue".
+
+In the absence of physical dice, one can also use **diceware** to generate a
 passphrase by rolling electronic dice. An example word list made by the
 -electronic flag would look like this:
 
@@ -52,9 +68,7 @@ passphrase by rolling electronic dice. An example word list made by the
 
 ## Building:
 
-    $> export GOPATH=`pwd`
-    $> go get -v github.com/mgumz/diceware
-    $> cp bin/diceware /usr/local/bin
+    $> go install -v github.com/mgumz/diceware@latest
 
 ## Integrated word lists:
 
@@ -95,7 +109,7 @@ them. The lists are integrated only to increase the convenience of having
 
 ## License:
 
-Copyright (c) 2017 Mathias Gumz. All rights reserved.
+Copyright (c) 2017-2022 Mathias Gumz. All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are
