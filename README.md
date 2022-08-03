@@ -105,6 +105,7 @@ them. The lists are integrated only to increase the convenience of having
 ## Similar tools:
 
 * https://github.com/natefinch/diceware/
+* https://github.com/weakish/xkcd936/
 
 
 ## License:
