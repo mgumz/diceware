@@ -40,15 +40,15 @@ func doRollOnList(rolls int, lines []string, extra bool, printer *wordPrinter) {
 // again to choose a letter in that word. Roll a third and fourth time to
 // pick the added character from the following table:
 //
-//     Third Roll
-//     1 2 3 4 5 6
+//	Third Roll
+//	1 2 3 4 5 6
+//
 // F 1 ~ ! # $ % ^
 // o 2 & * ( ) - =
 // u 3 + [ ] \ { }
 // r 4 : ; " ' < >
 // t 5 ? / 0 1 2 3
 // h 6 4 5 6 7 8 9
-//
 func doExtra(words []wordLine) {
 
 	const extra = "~!#$%^&*()-=+[]\\{}:;\"'<>?/0123456789"

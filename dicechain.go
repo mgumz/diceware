@@ -39,15 +39,15 @@ type diceChain string
 func (dc diceChain) String() string { return string(dc) }
 
 // transform a dicechain into an "index".
-func (chain diceChain) toIndex() (int, error) {
+func (dc diceChain) toIndex() (int, error) {
 
-	if len(chain) != 5 {
-		return -1, fmt.Errorf("invalid dicechain %q: expected 5 chars per dicechain", chain)
+	if len(dc) != 5 {
+		return -1, fmt.Errorf("invalid dicechain %q: expected 5 chars per dicechain", dc)
 	}
 
-	r := strings.Map(diceDown, chain.String())
+	r := strings.Map(diceDown, dc.String())
 	if len(r) != 5 {
-		return -1, fmt.Errorf("invalid dicechain %q: contains an invalid char", chain)
+		return -1, fmt.Errorf("invalid dicechain %q: contains an invalid char", dc)
 	}
 
 	n, err := strconv.ParseInt(r, 6, 32)
@@ -59,7 +59,7 @@ func (dc diceChain) FromIndex(index int) diceChain {
 	r := strconv.FormatInt(int64(index), 6)
 	r = fmt.Sprintf("%05s", r)
 	dc = diceChain(strings.Map(diceUp, r))
-    return dc
+	return dc
 }
 
 // transform '12345' to '01234' - all numbers down by 1

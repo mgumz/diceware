@@ -3,7 +3,6 @@ package main
 import (
 	"bufio"
 	"io"
-	"io/ioutil"
 	"sort"
 	"strings"
 )
@@ -50,7 +49,7 @@ func internalListReader(name string) io.ReadCloser {
 
 func listReaderFromString(list string) io.ReadCloser {
 	r := strings.NewReader(strings.TrimSpace(list))
-	return ioutil.NopCloser(r)
+	return io.NopCloser(r)
 }
 
 func internalListNames() []string {
