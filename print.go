@@ -2,39 +2,60 @@ package main
 
 import (
 	"fmt"
-	"os"
+	"io"
 	"text/tabwriter"
 )
 
 type wordPrinter struct {
-	horizontal bool
-	verbose    bool
+	w        io.Writer
+	simple   bool
+	sep      string
+	vertical bool
+	verbose  bool
 }
 
 func (p *wordPrinter) Print(words []wordLine) {
 
-	w := &tabwriter.Writer{}
-	w.Init(os.Stdout, 0, 8, 2, ' ', tabwriter.AlignRight)
-	defer w.Flush()
+	if p.simple {
+		printSimple(p.w, words, p.sep)
+		return
+	}
 
-	if p.horizontal {
+	tw := &tabwriter.Writer{}
+	tw.Init(p.w, 0, 8, 2, ' ', tabwriter.AlignRight)
+	defer tw.Flush()
+
+	if !p.vertical {
 		for i := range words {
-			fmt.Fprintf(w, "%s\t", words[i].word)
+			fmt.Fprintf(tw, "%s\t", words[i].word)
 		}
-		fmt.Fprintln(w)
+		fmt.Fprintln(tw)
 		if p.verbose {
 			for i := range words {
-				fmt.Fprintf(w, "%s\t", indexToDiceChain(words[i].index))
+				fmt.Fprintf(tw, "%s\t", indexToDiceChain(words[i].index))
 			}
-			fmt.Fprintln(w)
+			fmt.Fprintln(tw)
 		}
 	} else {
 		for i := range words {
-			fmt.Fprintf(w, "%s", words[i].word)
+			fmt.Fprintf(tw, "%s", words[i].word)
 			if p.verbose {
-				fmt.Fprintf(w, "\t%s", indexToDiceChain(words[i].index))
+				fmt.Fprintf(tw, "\t%s", indexToDiceChain(words[i].index))
 			}
+			fmt.Fprintln(tw)
+		}
+	}
+}
+
+func printSimple(w io.Writer, words []wordLine, sep string) {
+
+	for i := range words {
+		fmt.Fprint(w, words[i].word)
+		if i < len(words)-1 {
+			fmt.Fprint(w, sep)
+		} else {
 			fmt.Fprintln(w)
 		}
 	}
+
 }

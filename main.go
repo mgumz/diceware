@@ -14,60 +14,47 @@ func main() {
 		flag.PrintDefaults()
 	}
 
-	version := flag.Bool("version", false, "show version, combine with -version")
-	list := flag.String("list", "diceware", "name of list to use, see -lists")
-	listLists := flag.Bool("lists", false, "list internal lists")
-	dumpList := flag.Bool("dump", false, "dump the content of a -list, combine with -horizontal, -verbose")
-	rolls := flag.Int("rolls", 6, "number of rolls for -electronic")
-	electronic := flag.Bool("electronic", false, "roll dice electronically, see diceware FAQ")
-	listFile := flag.String("file", "", "read word list from file")
-	horizontal := flag.Bool("horizontal", true, "list rolled dice horizontally (-electronic)")
-	verbose := flag.Bool("verbose", false, "be more verbose (print line number of used word)")
-	extra := flag.Bool("extra", false, "modify one word according to 'extra' rules (-electronic)")
+	cli := cliFlags{}
+	setupFlags(&cli)
 
 	flag.Parse()
 
-	if *version {
-		printVersion(*verbose)
+	if cli.printVersion {
+		printVersion(cli.beVerbose)
 		return
 	}
 
-	if *listLists {
+	if cli.listLists {
 		for _, name := range internalListNames() {
 			fmt.Println(name)
 		}
 		return
 	}
 
-	if *dumpList {
-		if *list == "" {
+	if cli.dumpList {
+		if cli.wordList == "" {
 			fmt.Fprintf(os.Stderr, "error: missing -list\n")
 			return
 		}
-		doDumpList(*list, *horizontal, *verbose)
+		doDumpList(cli.wordList, cli.printHorizontal, cli.beVerbose)
 		return
 	}
 
-	var lines []string
-	if *listFile != "" {
-		file, err := os.Open(*listFile)
-		if err != nil {
-			fmt.Fprintf(os.Stderr, "error: %q: %v\n", *listFile, err)
-			os.Exit(2)
-		}
-		lines = readerToLines(file)
-		file.Close()
-	} else {
-		if lines = linesFromInternalList(*list); lines == nil {
-			fmt.Fprintf(os.Stderr, "error: list %q does not exist\n", *list)
-			os.Exit(1)
-		}
+	lines, err := getWordLines(cli.wordFile, cli.wordList)
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "error: %s", err)
+		os.Exit(2)
 	}
 
-	printer := &wordPrinter{*horizontal, *verbose}
+	printer := &wordPrinter{
+		os.Stdout,
+		cli.printUnpadded, cli.wordSep,
+		!cli.printHorizontal,
+		cli.beVerbose,
+	}
 
-	if *electronic {
-		doRollOnList(*rolls, lines, *extra, printer)
+	if cli.rollElectronic {
+		doRollOnList(cli.nRolls, lines, cli.extra, printer)
 		return
 	}
 
@@ -78,7 +65,31 @@ func main() {
 	}
 
 	if err := doLookupRolls(flag.Args(), lines, printer); err != nil {
-		fmt.Fprintf(os.Stderr, "error: %s\n", err)
+		fmt.Fprintln(os.Stderr, "error:", err)
 		os.Exit(1)
 	}
+}
+
+func getWordLines(filename string, listName string) ([]string, error) {
+	if filename != "" {
+		return getWordLinesFromFile(filename)
+	}
+	return getWordLinesFromInternal(listName)
+}
+
+func getWordLinesFromFile(name string) ([]string, error) {
+	file, err := os.Open(name)
+	if err != nil {
+		return []string{}, fmt.Errorf("%q: %v", name, err)
+	}
+	defer file.Close()
+	return readerToLines(file), nil
+}
+
+func getWordLinesFromInternal(name string) ([]string, error) {
+	lines := linesFromInternalList(name)
+	if lines == nil {
+		return []string{}, fmt.Errorf("list %q does not exist", name)
+	}
+	return lines, nil
 }
